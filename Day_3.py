@@ -1,3 +1,8 @@
+from time import perf_counter
+
+start_time = perf_counter()
+
+
 def open_file(file_name: str = "Day_3.txt") -> str:
     with open(file_name) as f:
         return f.read()
@@ -125,3 +130,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+    print("Time elapsed: ", perf_counter() - start_time)

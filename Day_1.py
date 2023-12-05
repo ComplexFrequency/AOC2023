@@ -1,3 +1,7 @@
+from time import perf_counter
+
+start_time = perf_counter()
+
 NUMBERS_LIST = ["one", "two", "three", "four", "five", "six", "seven", "eight", "nine"]
 
 
@@ -41,3 +45,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+    print("Time elapsed: ", perf_counter() - start_time)

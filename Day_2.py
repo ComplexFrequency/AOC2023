@@ -1,3 +1,7 @@
+from time import perf_counter
+
+start_time = perf_counter()
+
 LIMITS = {"red": 12, "green": 13, "blue": 14}
 
 
@@ -68,3 +72,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+    print("Time elapsed: ", perf_counter() - start_time)
