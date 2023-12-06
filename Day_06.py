@@ -27,7 +27,7 @@ def get_number_of_possible_times(race_time: int, record_distance: int) -> int:
     # Using isqrt completely avoids floating point arithmetic,
     # making this function faster and accurate for very large numbers.
 
-    return max(2 * isqrt(max(race_time**2 - 4 * record_distance, 0) + 1) // 2 - 1, 0)
+    return max(isqrt(max(race_time**2 - 4 * record_distance, 0) + 1) - 1, 0)
 
 
 def part_one(race_times: list[int], race_distances: list[int]) -> int:
