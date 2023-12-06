@@ -1,5 +1,5 @@
 from time import perf_counter
-from math import sqrt, floor, ceil, prod
+from math import isqrt
 
 start_time = perf_counter()
 
@@ -18,20 +18,23 @@ def get_race_distances(lines: list[str]) -> list[int]:
 
 
 def get_number_of_possible_times(race_time: int, record_distance: int) -> int:
-    # equation is distance < t_wait*(time - t_wait)
-    # -t_wait^2 + time*t_wait - distance > 0.1
-    # t_wait = (-time +- sqrt(time^2 - 4*(-distance)))/2
-    delta = sqrt(max(race_time**2 - 4 * record_distance, 0))
-    p1 = (race_time - delta) / 2
-    p2 = (race_time + delta) / 2
-    return max(ceil(p2) - floor(p1) - 1, 0)
+    # The inequality to solve is distance < t_wait*(time - t_wait)
+    # or -t_wait^2 + time*t_wait - distance > 0.
+    #
+    # Solution:
+    # t_wait = (time +- sqrt(time^2 - 4*distance))/2
+    #
+    # Using isqrt completely avoids floating point arithmetic,
+    # making this function faster and accurate for very large numbers.
+
+    return max(2 * isqrt(max(race_time**2 - 4 * record_distance, 0) + 1) // 2 - 1, 0)
 
 
 def part_one(race_times: list[int], race_distances: list[int]) -> int:
-    return prod(
-        get_number_of_possible_times(time, distance)
-        for time, distance in zip(race_times, race_distances)
-    )
+    product = 1
+    for time, distance in zip(race_times, race_distances):
+        product *= get_number_of_possible_times(time, distance)
+    return product
 
 
 def part_two(race_times: list[int], race_distances: list[int]) -> int:
