@@ -98,17 +98,14 @@ def get_line_fitness(line: str) -> int:
 def get_line_fitness_p2(line: str) -> int:
     hand = line[:5].replace("J", "1")
 
-    if "1" in hand:
-        max_fitness = 0
+    if hand == "11111":
+        return get_line_fitness(hand)
 
-        for card in card_to_value_map:
-            modified_hand = hand.replace("1", card)
-            hand_fitness = get_hand_rank(modified_hand) + get_hand_value(hand)
-            max_fitness = max(max_fitness, hand_fitness)
+    # Replaces "J" with second most frequent card
+    second_most_frequent = max(set(hand) - {"1"}, key=hand.count)
+    modified_hand = hand.replace("1", second_most_frequent)
 
-        return max_fitness
-
-    return get_line_fitness(hand)
+    return get_hand_rank(modified_hand) + get_hand_value(hand)
 
 
 def part_one(lines: list[str]) -> int:
