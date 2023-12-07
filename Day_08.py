@@ -3,7 +3,7 @@ from time import perf_counter
 start_time = perf_counter()
 
 
-def open_file(file_name: str = "Day_8.txt") -> str:
+def open_file(file_name: str = "Day_08.txt") -> str:
     with open(file_name) as f:
         return f.read()
 

@@ -13,7 +13,7 @@ MAP_ORDER = [
 ]
 
 
-def open_file(file_name: str = "Day_5.txt") -> str:
+def open_file(file_name: str = "Day_05.txt") -> str:
     with open(file_name) as f:
         return f.read()
 

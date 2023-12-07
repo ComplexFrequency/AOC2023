@@ -5,7 +5,7 @@ start_time = perf_counter()
 NUMBERS_LIST = ["one", "two", "three", "four", "five", "six", "seven", "eight", "nine"]
 
 
-def open_file(file_name="Day_1.txt"):
+def open_file(file_name="Day_01.txt"):
     with open(file_name) as f:
         return f.read()
 

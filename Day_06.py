@@ -4,7 +4,7 @@ from math import isqrt
 start_time = perf_counter()
 
 
-def open_file(file_name: str = "Day_6.txt") -> str:
+def open_file(file_name: str = "Day_06.txt") -> str:
     with open(file_name) as f:
         return f.read()
 
