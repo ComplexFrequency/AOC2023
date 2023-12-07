@@ -97,11 +97,8 @@ def get_line_fitness(line: str) -> int:
 def get_line_fitness_p2(line: str) -> int:
     hand = line[:5].replace("J", "1")
 
-    if hand == "11111":
-        return get_line_fitness(hand)
-
-    # Replaces "J" with second most frequent card
-    second_most_frequent = max(set(hand) - {"1"}, key=hand.count)
+    # Replaces "J" card with second most frequent card
+    second_most_frequent = max((set(hand) - {"1"}) or {"1"}, key=hand.count)
     modified_hand = hand.replace("1", second_most_frequent)
 
     return get_hand_rank(modified_hand) + get_hand_value(hand)
