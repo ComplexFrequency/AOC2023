@@ -1,5 +1,4 @@
 from time import perf_counter
-from typing import Callable
 
 start_time = perf_counter()
 
