@@ -9,30 +9,12 @@ EAST = (0, 1)
 WEST = (0, -1)
 
 DIRECTIONAL_MAP = {
-    "|": {
-        NORTH: NORTH,
-        SOUTH: SOUTH,
-    },
-    "-": {
-        EAST: EAST,
-        WEST: WEST,
-    },
-    "L": {
-        SOUTH: EAST,
-        WEST: NORTH,
-    },
-    "J": {
-        SOUTH: WEST,
-        EAST: NORTH,
-    },
-    "7": {
-        NORTH: WEST,
-        EAST: SOUTH,
-    },
-    "F": {
-        NORTH: EAST,
-        WEST: SOUTH,
-    },
+    "|": {NORTH: NORTH, SOUTH: SOUTH},
+    "-": {EAST: EAST, WEST: WEST},
+    "L": {SOUTH: EAST, WEST: NORTH},
+    "J": {SOUTH: WEST, EAST: NORTH},
+    "7": {NORTH: WEST, EAST: SOUTH},
+    "F": {NORTH: EAST, WEST: SOUTH},
 }
 
 
