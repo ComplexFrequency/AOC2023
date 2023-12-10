@@ -8,30 +8,22 @@ def open_file(file_name: str = "Day_09.txt") -> str:
         return f.read()
 
 
-def reduce_line(line: list[int]) -> list[int]:
-    result = []
-    for i in range(len(line) - 1):
-        result.append(line[i + 1] - line[i])
-    return result
+def differences(line: list[int]) -> list[int]:
+    return [line[i + 1] - line[i] for i in range(len(line) - 1)]
 
 
-def solve(lines: list[list[int]], reverse=False) -> int:
-    result = 0
-    for line in lines:
-        derivatives_matrix = [line] if not reverse else [list(reversed(line))]
-        while not all(derivative == 0 for derivative in derivatives_matrix[-1]):
-            derivatives_matrix.append(reduce_line(derivatives_matrix[-1]))
-
-        result += sum(derivatives[-1] for derivatives in derivatives_matrix)
-    return result
+def extrapolate(line: list[int]) -> list[int]:
+    if all(x == 0 for x in line):
+        return 0
+    return line[-1] + extrapolate(differences(line))
 
 
 def part_one(lines: list[list[int]]) -> int:
-    return solve(lines)
+    return sum(extrapolate(line) for line in lines)
 
 
 def part_two(lines: list[list[int]]) -> int:
-    return solve(lines, reverse=True)
+    return sum(extrapolate(line[::-1]) for line in lines)
 
 
 def main():
