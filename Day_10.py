@@ -41,32 +41,12 @@ def get_next_direction(
     return DIRECTIONAL_MAP[character][current_direction]
 
 
-def find_border_length(lines: list[str], starting_point: tuple[int, int]) -> int:
-    current_direction = NORTH
-    current_point = starting_point
-    length = 0
-    while True:
-        current_point = add_tuples(current_point, current_direction)
-        length += 1
-
-        if current_point == starting_point:
-            break
-
-        current_direction = get_next_direction(lines, current_point, current_direction)
-
-    return length
-
-
-def part_one(lines: list[str], starting_point: tuple[int, int]) -> int:
-    return find_border_length(lines, starting_point) // 2
-
-
 def get_border_matrix(
     lines: list[str], starting_point: tuple[int, int]
 ) -> list[list[bool]]:
     current_direction = NORTH
     current_point = starting_point
-    matrix = [[False for col in range(len(lines[0]))] for row in range(len(lines))]
+    matrix = [[False for _ in range(len(row))] for row in lines]
 
     while True:
         current_point = add_tuples(current_point, current_direction)
@@ -77,6 +57,10 @@ def get_border_matrix(
         current_direction = get_next_direction(lines, current_point, current_direction)
 
     return matrix
+
+
+def part_one(border_matrix: list[list[bool]]) -> int:
+    return sum(sum(row) for row in border_matrix) // 2
 
 
 def get_number_of_border_crossings(
@@ -111,22 +95,21 @@ def get_number_of_border_crossings(
 
 
 def part_two(lines: list[str], border_matrix: list[list[bool]]) -> int:
-    result = 0
-    for x in range(1, len(lines) - 1):
-        for y in range(1, len(lines[0]) - 1):
-            if not border_matrix[x][y]:
-                result += get_number_of_border_crossings(lines, border_matrix, x, y) % 2
-
-    return result
+    return sum(
+        get_number_of_border_crossings(lines, border_matrix, x, y) % 2
+        for x in range(1, len(lines) - 1)
+        for y in range(1, len(lines[0]) - 1)
+        if not border_matrix[x][y]
+    )
 
 
 def main():
     lines = open_file().splitlines()
     starting_point = get_starting_point(lines)
-    print("Part 1: ", part_one(lines, starting_point))
+    border_matrix = get_border_matrix(lines, starting_point)
+    print("Part 1: ", part_one(border_matrix))
 
     lines[starting_point[0]] = lines[starting_point[0]].replace("S", "|")
-    border_matrix = get_border_matrix(lines, starting_point)
     print("Part 2: ", part_two(lines, border_matrix))
 
 
